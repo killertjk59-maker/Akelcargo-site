@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="tg" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akel Cargo - Хизматрасонии боркашонӣ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #3b82f6;
+            --accent: #f59e0b;
+            --bg: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #ffffff;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            --radius: 12px;
+            --radius-lg: 16px;
+            --gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            --gradient-accent: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #1e293b;
+            --text: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: #334155;
+            --shadow: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: all 0.3s ease;
+            line-height: 1.6;
+        }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(20px);
+            background: rgba(255,255,255,0.9);
+        }
+
+        [data-theme="dark"] .navbar {
+            background: rgba(15,23,42,0.9);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            font-weight: 800;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-secondary);
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .btn-ghost:hover {
+            background: var(--bg-secondary);
+            color: var(--text);
+        }
+
+        .btn-accent {
+            background: var(--gradient-accent);
+            color: white;
+            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+        }
+
+        .theme-toggle, .lang-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+
+        .theme-toggle:hover, .lang-toggle:hover {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .lang-dropdown {
+            position: relative;
+        }
+
+        .lang-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 4px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 4px;
+            display: none;
+            min-width: 150px;
+            box-shadow: var(--shadow-lg);
+            z-index: 100;
+        }
+
+        .lang-menu.show { display: block; }
+
+        .lang-option {
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .lang-option:hover { background: var(--bg-secondary); }
+        .lang-option.active { background: rgba(37, 99, 235, 0.1); color: var(--primary); }
+
+        .mobile-menu-btn {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .mobile-menu-btn span {
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 20px 60px;
+            background: var(--bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: 100px;
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .hero h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat-item h3 {
+            font-size: 32px;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-item p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-card {
+            width: 100%;
+            max-width: 500px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .hero-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .hero-card-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(34, 197, 94, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .tracking-input-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tracking-input-group input {
+            flex: 1;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 16px;
+            background: var(--bg);
+            color: var(--text);
+            transition: all 0.2s;
+        }
+
+        .tracking-input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .tracking-input-group button {
+            padding: 14px 24px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .tracking-input-group button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+        }
+
+        .tracking-status {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 10px;
+            display: none;
+        }
+
+        .tracking-status.show { display: flex; }
+
+        .tracking-status .icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(34, 197, 94, 0.2);
+            border-radius: 50%;
+            display: float;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .tracking-progress {
+            margin-top: 20px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .progress-step {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .progress-step.active { color: var(--primary); font-weight: 600; }
+
+        /* ========== SECTIONS ========== */
+        section {
+            padding: 80px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 100px;
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-size: 40px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ========== SERVICES ========== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        /* ========== PRICING ========== */
+        .pricing-card {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .pricing-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .pricing-amount {
+            font-size: 64px;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .pricing-unit {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            width: 24px;
+            height: 24px;
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* ========== HOW IT WORKS ========== */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 32px;
+        }
+
+        .step-number {
+            width: 64px;
+            height: 64px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 800;
+            margin: 0 auto 20px;
+        }
+
+        .step-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .step-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        /* ========== ADDRESS ========== */
+        .address-section {
+            background: var(--bg-secondary);
+        }
+
+        .address-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .address-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+        }
+
+        .address-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .address-info {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .address-item {
+            display: flex;
+            gap: 12px;
+        }
+
+        .address-item .icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .address-item .content {
+            flex: 1;
+        }
+
+        .address-item .label {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .address-item .value {
+            font-size: 15px;
+            font-weight: 500;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            padding: 4px 10px;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 4px;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* ========== CONTACT ========== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .contact-info-card, .contact-form-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .contact-item:last-child { border-bottom: none; }
+
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .contact-label {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .contact-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .contact-value a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 15px;
+            background: var(--bg);
+            color: var(--text);
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 60px 20px 30px;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin: 16px 0;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 8px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .footer h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--primary); }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* ========== FLOATING BUTTONS ========== */
+        .floating-buttons {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 999;
+        }
+
+        .float-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .float-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .float-btn.telegram { background: #0088cc; }
+        .float-btn.whatsapp { background: #25d366; }
+
+        /* ========== SCROLL ANIMATIONS ========== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== TOAST ========== */
+        .toast-container {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .toast {
+            padding: 14px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            animation: slideIn 0.3s ease;
+            min-width: 300px;
+        }
+
+        .toast.success { border-left: 4px solid #22c55e; }
+        .toast.error { border-left: 4px solid #ef4444; }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* ========== MOBILE MENU ========== */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            padding: 20px;
+            z-index: 999;
+        }
+
+        .mobile-nav.show { display: block; }
+
+        .mobile-nav a {
+            display: block;
+            padding: 12px 16px;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .mobile-nav a:hover { background: var(--bg-secondary); }
+
+        /* ========== USER MENU ========== */
+        .user-menu {
+            position: relative;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 8px;
+            display: none;
+            min-width: 200px;
+            box-shadow: var(--shadow-lg);
+            z-index: 100;
+        }
+
+        .user-dropdown.show { display: block; }
+
+        .user-dropdown a, .user-dropdown button {
+            display: block;
+            width: 100%;
+            padding: 10px 12px;
+            border: none;
+            background: none;
+            color: var(--text);
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 8px;
+            text-align: left;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .user-dropdown a:hover, .user-dropdown button:hover {
+            background: var(--bg-secondary);
+        }
+
+        .user-info {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 8px;
+        }
+
+        .user-info .name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-info .role {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .nav-links, .nav-actions .btn-outline, .nav-actions .btn-primary {
+                display: none;
+            }
+
+            .mobile-menu-btn { display: flex; }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero h1 { font-size: 36px; }
+            .hero p { margin: 0 auto 24px; }
+            .hero-buttons { justify-content: center; }
+            .hero-stats { justify-content: center; }
+
+            .hero-visual { order: -1; }
+
+            .address-grid, .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+
+            .section-header h2 { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <div class="logo-icon">A</div>
+                <span class="logo-text">Akel Cargo</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#services" data-i18n="nav.services">Хизматрасониҳо</a></li>
+                <li><a href="#pricing" data-i18n="nav.pricing">Нархнома</a></li>
+                <li><a href="#how" data-i18n="nav.howItWorks">Чӣ тавр кор мекунад</a></li>
+                <li><a href="#address" data-i18n="nav.address">Суроға</a></li>
+                <li><a href="/tracking" data-i18n="nav.tracking">Трекинг</a></li>
+                <li><a href="#contact" data-i18n="nav.contact">Тамос</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <div class="lang-dropdown">
+                    <button class="lang-toggle" onclick="toggleLangMenu()">🌐</button>
+                    <div class="lang-menu" id="langMenu">
+                        <div class="lang-option active" onclick="setLang('tg')">🇹🇯 Тоҷикӣ</div>
+                        <div class="lang-option" onclick="setLang('ru')">🇷🇺 Русский</div>
+                        <div class="lang-option" onclick="setLang('en')">🇬🇧 English</div>
+                    </div>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+                <div id="authButtons">
+                    <a href="/login" class="btn btn-outline" data-i18n="nav.login">Воридшавӣ</a>
+                    <a href="/register" class="btn btn-primary" data-i18n="nav.register">Регистратсия</a>
+                </div>
+                <div id="userMenu" class="user-menu" style="display:none;">
+                    <div class="user-avatar" onclick="toggleUserMenu()">U</div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="user-info">
+                            <div class="name" id="userName">User</div>
+                            <div class="role" id="userRole">Муштарӣ</div>
+                        </div>
+                        <a href="/dashboard" data-i18n="nav.dashboard">📊 Кабинет</a>
+                        <a href="/tracking" data-i18n="nav.myTracking">📦 Трекинг</a>
+                        <button onclick="logout()" data-i18n="nav.logout">🚪 Баромад</button>
+                    </div>
+                </div>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="#services" data-i18n="nav.services">Хизматрасониҳо</a>
+        <a href="#pricing" data-i18n="nav.pricing">Нархнома</a>
+        <a href="#how" data-i18n="nav.howItWorks">Чӣ тавр кор мекунад</a>
+        <a href="#address" data-i18n="nav.address">Суроға</a>
+        <a href="/tracking" data-i18n="nav.tracking">Трекинг</a>
+        <a href="#contact" data-i18n="nav.contact">Тамос</a>
+        <a href="/login" data-i18n="nav.login">Воридшавӣ</a>
+        <a href="/register" data-i18n="nav.register">Регистратсия</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    🚀 <span data-i18n="hero.badge">Хизматрасонии боэътимод</span>
+                </div>
+                <h1 data-i18n="hero.title">Борҳои шумо аз <span>Чин</span> ба Тоҷикистон</h1>
+                <p data-i18n="hero.subtitle">Борҳои худро аз Чин ба Тоҷикистон бо нархи дастрас ва бехатар интиқол диҳед. Сроки интиқол 15-20 рӯз.</p>
+                <div class="hero-buttons">
+                    <a href="/register" class="btn btn-primary" data-i18n="hero.startBtn">Сар кардан →</a>
+                    <a href="/tracking" class="btn btn-outline" data-i18n="hero.trackBtn">📦 Пайгирии бор</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <h3>5000+</h3>
+                        <p data-i18n="hero.stat1">Борҳо интиқол шудаанд</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>15-20</h3>
+                        <p data-i18n="hero.stat2">Рӯзи интиқол</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>30 сомонӣ</h3>
+                        <p data-i18n="hero.stat3">Барои 1 кг</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual fade-in">
+                <div class="hero-card">
+                    <div class="hero-card-header">
+                        <div class="hero-card-icon">📦</div>
+                        <div>
+                            <h3 data-i18n="hero.cardTitle">Пайгирии бор</h3>
+                            <p style="font-size:13px;color:var(--text-muted)" data-i18n="hero.cardSubtitle">Рақами трекингро ворид кунед</p>
+                        </div>
+                    </div>
+                    <div class="tracking-input-group">
+                        <input type="text" id="heroTrackingInput" placeholder="AC123456789" />
+                        <button onclick="heroTrack()" data-i18n="hero.trackBtn2">Ҷустуҷӯ</button>
+                    </div>
+                    <div id="heroTrackingResult"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-badge">⚡ <span data-i18n="services.badge">Хизматрасониҳо</span></div>
+                <h2 data-i18n="services.title">Хизматрасониҳои мо</h2>
+                <p data-i18n="services.subtitle">Мо хизматрасонии пурраи боркашониро аз Чин ба Тоҷикистон пешниҳод менамоем</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon">🚢</div>
+                    <h3 data-i18n="services.s1title">Боркашонии баҳрӣ</h3>
+                    <p data-i18n="services.s1desc">Интиқоли бор тавассути нақлиёти баҳрӣ бо нархи дастрас ва бехатар</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">🚛</div>
+                    <h3 data-i18n="services.s2title">Боркашонии заминӣ</h3>
+                    <p data-i18n="services.s2desc">Интиқоли бор тавассути нақлиёти автомобилӣ аз Чин ба Тоҷикистон</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">📋</div>
+                    <h3 data-i18n="services.s3title">Расмикунии гумрукӣ</h3>
+                    <p data-i18n="services.s3desc">Мо ҳамаи расмикуниҳои гумрукиро барои шумо иҷро мекунем</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">📦</div>
+                    <h3 data-i18n="services.s4title">Бастабандӣ</h3>
+                    <p data-i18n="services.s4desc">Бастабандии касбии борҳо барои ҳифзи онҳо дар вақти интиқол</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">🏪</div>
+                    <h3 data-i18n="services.s5title">Харид аз Чин</h3>
+                    <p data-i18n="services.s5desc">Кӯмак дар хариди мол аз бозорҳои Чин ва сомонаҳои онлайн</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">📍</div>
+                    <h3 data-i18n="services.s6title">Пайгирии онлайн</h3>
+                    <p data-i18n="services.s6desc">Пайгирии бори шумо дар ҳар лаҳза тавассути системаи онлайн</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" style="background: var(--bg-secondary)">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-badge">💰 <span data-i18n="pricing.badge">Нархнома</span></div>
+                <h2 data-i18n="pricing.title">Нархи интиқол</h2>
+                <p data-i18n="pricing.subtitle">Нархи шаффоф ва дастрас барои ҳама</p>
+            </div>
+            <div class="pricing-card fade-in">
+                <div class="pricing-badge" data-i18n="pricing.popular">Нархи асосӣ</div>
+                <div class="pricing-amount">30</div>
+                <div class="pricing-unit" data-i18n="pricing.unit">сомонӣ барои 1 кг</div>
+                <ul class="pricing-features">
+                    <li data-i18n="pricing.f1">Интиқол аз Чин ба Тоҷикистон</li>
+                    <li data-i18n="pricing.f2">Сроки интиқол 15-20 рӯз</li>
+                    <li data-i18n="pricing.f3">Пайгирии онлайн</li>
+                    <li data-i18n="pricing.f4">Расмикунии гумрукӣ</li>
+                    <li data-i18n="pricing.f5">Бастабандии ройгон</li>
+                    <li data-i18n="pricing.f6">Дастрасии 24/7</li>
+                </ul>
+                <a href="/register" class="btn btn-primary" style="width:100%" data-i18n="pricing.cta">Ҳоло сар кунед</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-badge">🔄 <span data-i18n="how.badge">Раванд</span></div>
+                <h2 data-i18n="how.title">Чӣ тавр кор мекунад?</h2>
+                <p data-i18n="how.subtitle">4 қадами оддӣ барои интиқоли бор</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card fade-in">
+                    <div class="step-number">1</div>
+                    <h3 data-i18n="how.s1title">Регистратсия</h3>
+                    <p data-i18n="how.s1desc">Дар системаи мо сабти ном кунед ва ба кабинети шахсӣ ворид шавед</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">2</div>
+                    <h3 data-i18n="how.s2title">Фиристодани бор</h3>
+                    <p data-i18n="how.s2desc">Бори худро ба суроғаи анбори мо дар Чин фиристед</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">3</div>
+                    <h3 data-i18n="how.s3title">Интиқол</h3>
+                    <p data-i18n="how.s3desc">Мо бори шуморо аз Чин ба Тоҷикистон интиқол медиҳем</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">4</div>
+                    <h3 data-i18n="how.s4title">Гирифтани бор</h3>
+                    <p data-i18n="how.s4desc">Бори худро дар Тоҷикистон гиред</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Address -->
+    <section id="address" class="address-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-badge">📍 <span data-i18n="address.badge">Суроға</span></div>
+                <h2 data-i18n="address.title">Суроғаи анбор</h2>
+                <p data-i18n="address.subtitle">Бори худро ба ин суроға фиристед</p>
+            </div>
+            <div class="address-grid">
+                <div class="address-card fade-in">
+                    <h3>🇨🇳 <span data-i18n="address.chinaTitle">Анбор дар Чин</span></h3>
+                    <div class="address-info">
+                        <div class="address-item">
+                            <div class="icon">📍</div>
+                            <div class="content">
+                                <div class="label" data-i18n="address.addr">Суроға</div>
+                                <div class="value">浙江省金华市义乌市 商城大道与柳青路交叉口东北220米洪华小区102栋2单元一楼</div>
+                                <button class="copy-btn" onclick="copyText('浙江省金华市义乌市 商城大道与柳青路交叉口东北220米洪华小区102栋2单元一楼')" data-i18n="address.copy">Нусхабардорӣ</button>
+                            </div>
+                        </div>
+                        <div class="address-item">
+                            <div class="icon">🔢</div>
+                            <div class="content">
+                                <div class="label">KHMIR</div>
+                                <div class="value">15625450102</div>
+                                <button class="copy-btn" onclick="copyText('15625450102')" data-i18n="address.copy">Нусхабардорӣ</button>
+                            </div>
+                        </div>
+                        <div class="address-item">
+                            <div class="icon">📱</div>
+                            <div class="content">
+                                <div class="label" data-i18n="address.phone">Телефон (MIR)</div>
+                                <div class="value">+992715555000</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="address-card fade-in">
+                    <h3>🇹🇯 <span data-i18n="address.tjTitle">Дар Тоҷикистон</span></h3>
+                    <div class="address-info">
+                        <div class="address-item">
+                            <div class="icon">📱</div>
+                            <div class="content">
+                                <div class="label" data-i18n="address.phone">Телефон</div>
+                                <div class="value">+992 71 555 50 00</div>
+                            </div>
+                        </div>
+                        <div class="address-item">
+                            <div class="icon">💬</div>
+                            <div class="content">
+                                <div class="label">Telegram</div>
+                                <div class="value"><a href="https://t.me/akelcargo" target="_blank">@akelcargo</a></div>
+                            </div>
+                        </div>
+                        <div class="address-item">
+                            <div class="icon">⏰</div>
+                            <div class="content">
+                                <div class="label" data-i18n="address.delivery">Сроки интиқол</div>
+                                <div class="value" data-i18n="address.deliveryTime">15-20 рӯз</div>
+                            </div>
+                        </div>
+                        <div class="address-item">
+                            <div class="icon">✈️</div>
+                            <div class="content">
+                                <div class="label" data-i18n="address.airline">Авиакомпания</div>
+                                <div class="value" data-i18n="address.noAirline">Надорем</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-badge">📞 <span data-i18n="contact.badge">Тамос</span></div>
+                <h2 data-i18n="contact.title">Бо мо тамос гиред</h2>
+                <p data-i18n="contact.subtitle">Мо ҳамеша омодаем ба шумо кӯмак кунем</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info-card fade-in">
+                    <h3 data-i18n="contact.infoTitle">Маълумоти тамос</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div>
+                            <div class="contact-label" data-i18n="contact.phone">Телефон</div>
+                            <div class="contact-value"><a href="tel:+992715555000">+992 71 555 50 00</a></div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">💬</div>
+                        <div>
+                            <div class="contact-label">Telegram</div>
+                            <div class="contact-value"><a href="https://t.me/akelcargo" target="_blank">@akelcargo</a></div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <div class="contact-label" data-i18n="contact.location">Ҷойгиршавӣ</div>
+                            <div class="contact-value" data-i18n="contact.locationVal">Тоҷикистон</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">⏰</div>
+                        <div>
+                            <div class="contact-label" data-i18n="contact.hours">Вақти корӣ</div>
+                            <div class="contact-value" data-i18n="contact.hoursVal">Душанбе - Шанбе: 9:00 - 18:00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-card fade-in">
+                    <h3 data-i18n="contact.formTitle">Паём фиристонед</h3>
+                    <form id="contactForm" onsubmit="submitContact(event)">
+                        <div class="form-group">
+                            <label data-i18n="contact.name">Ном</label>
+                            <input type="text" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="contact.phoneLabel">Телефон</label>
+                            <input type="tel" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="contact.subject">Мавзӯъ</label>
+                            <input type="text" name="subject">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="contact.message">Паём</label>
+                            <textarea name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width:100%" data-i18n="contact.send">Фиристондан</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="/" class="logo">
+                    <div class="logo-icon">A</div>
+                    <span class="logo-text">Akel Cargo</span>
+                </a>
+                <p data-i18n="footer.desc">Хизматрасонии боэътимоди боркашонӣ аз Чин ба Тоҷикистон. Нархи дастрас, сроки тез.</p>
+                <div class="footer-social">
+                    <a href="https://t.me/akelcargo" target="_blank">📱</a>
+                    <a href="tel:+992715555000">📞</a>
+                </div>
+            </div>
+            <div>
+                <h4 data-i18n="footer.linksTitle">Саҳифаҳо</h4>
+                <ul class="footer-links">
+                    <li><a href="#services" data-i18n="nav.services">Хизматрасониҳо</a></li>
+                    <li><a href="#pricing" data-i18n="nav.pricing">Нархнома</a></li>
+                    <li><a href="#how" data-i18n="nav.howItWorks">Чӣ тавр кор мекунад</a></li>
+                    <li><a href="#address" data-i18n="nav.address">Суроға</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 data-i18n="footer.servicesTitle">Хизматрасониҳо</h4>
+                <ul class="footer-links">
+                    <li><a href="#" data-i18n="services.s1title">Боркашонии баҳрӣ</a></li>
+                    <li><a href="#" data-i18n="services.s2title">Боркашонии заминӣ</a></li>
+                    <li><a href="#" data-i18n="services.s3title">Расмикунии гумрукӣ</a></li>
+                    <li><a href="#" data-i18n="services.s4title">Бастабандӣ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 data-i18n="footer.contactTitle">Тамос</h4>
+                <ul class="footer-links">
+                    <li><a href="tel:+992715555000">+992 71 555 50 00</a></li>
+                    <li><a href="https://t.me/akelcargo" target="_blank">Telegram: @akelcargo</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-i18n="footer.copy">© 2026 Akel Cargo. Ҳамаи ҳуқуқ маҳфузанд.</p>
+            <p data-i18n="footer.made">Сохташуда бо ❤️</p>
+        </div>
+    </footer>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <a href="https://t.me/akelcargo" target="_blank" class="float-btn telegram">📱</a>
+        <a href="tel:+992715555000" class="float-btn whatsapp">📞</a>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/i18n.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>

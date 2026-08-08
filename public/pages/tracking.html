@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="tg" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пайгирии бор - Akel Cargo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --bg: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #ffffff;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --radius: 12px;
+            --radius-lg: 16px;
+        }
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #1e293b;
+            --text: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: #334155;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-secondary); color: var(--text); min-height: 100vh; }
+        
+        .navbar { background: var(--bg); border-bottom: 1px solid var(--border); padding: 0 20px; position: sticky; top: 0; z-index: 100; }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 70px; }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); }
+        .logo-icon { width: 40px; height: 40px; background: var(--gradient); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: white; font-weight: 800; }
+        .logo-text { font-size: 20px; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-actions { display: flex; align-items: center; gap: 8px; }
+        .btn { padding: 10px 20px; border-radius: 10px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s; border: none; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+        .btn-primary { background: var(--gradient); color: white; }
+        .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-ghost { background: transparent; color: var(--text-secondary); padding: 8px; border-radius: 8px; }
+        .theme-toggle, .lang-toggle { width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg-card); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+        .lang-dropdown { position: relative; }
+        .lang-menu { position: absolute; top: 100%; right: 0; margin-top: 4px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 4px; display: none; min-width: 150px; box-shadow: var(--shadow-lg); z-index: 100; }
+        .lang-menu.show { display: block; }
+        .lang-option { padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        .lang-option:hover { background: var(--bg-secondary); }
+        .lang-option.active { background: rgba(37, 99, 235, 0.1); color: var(--primary); }
+        
+        .page-header { text-align: center; padding: 60px 20px 40px; }
+        .page-header h1 { font-size: 40px; font-weight: 800; margin-bottom: 12px; }
+        .page-header p { color: var(--text-secondary); font-size: 18px; }
+        
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px 60px; }
+        
+        .search-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-lg); margin-bottom: 32px; }
+        .search-input-group { display: flex; gap: 12px; }
+        .search-input-group input { flex: 1; padding: 16px 20px; border: 2px solid var(--border); border-radius: 12px; font-size: 18px; background: var(--bg); color: var(--text); transition: all 0.2s; font-family: inherit; }
+        .search-input-group input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); }
+        .search-input-group button { padding: 16px 32px; background: var(--gradient); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+        .search-input-group button:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4); }
+        
+        .result-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); display: none; }
+        .result-card.show { display: block; }
+        
+        .result-header { padding: 24px 32px; background: var(--gradient); color: white; }
+        .result-header h2 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+        .result-header .tracking-number { opacity: 0.9; font-size: 14px; }
+        
+        .progress-container { padding: 32px; border-bottom: 1px solid var(--border); }
+        .progress-bar { height: 12px; background: var(--border); border-radius: 6px; overflow: hidden; margin-bottom: 24px; }
+        .progress-fill { height: 100%; background: var(--gradient); border-radius: 6px; transition: width 0.8s ease; }
+        .progress-steps { display: flex; justify-content: space-between; position: relative; }
+        .progress-step { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .step-dot { width: 32px; height: 32px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all 0.3s; }
+        .step-dot.active { background: var(--gradient); color: white; transform: scale(1.1); }
+        .step-label { font-size: 12px; color: var(--text-muted); text-align: center; max-width: 80px; }
+        .step-label.active { color: var(--primary); font-weight: 600; }
+        
+        .result-details { padding: 32px; }
+        .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+        .detail-item { }
+        .detail-label { font-size: 13px; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .detail-value { font-size: 16px; font-weight: 600; }
+        .detail-value.status { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; background: rgba(37, 99, 235, 0.1); color: var(--primary); border-radius: 8px; }
+        
+        .updates-title { font-size: 18px; font-weight: 700; margin-bottom: 16px; padding-top: 24px; border-top: 1px solid var(--border); }
+        .update-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+        .update-item:last-child { border-bottom: none; }
+        .update-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--primary); margin-top: 6px; flex-shrink: 0; }
+        .update-dot.first { background: #22c55e; width: 16px; height: 16px; margin-top: 4px; }
+        .update-content { flex: 1; }
+        .update-status { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+        .update-location { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+        .update-desc { font-size: 13px; color: var(--text-muted); }
+        .update-time { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+        
+        .not-found { text-align: center; padding: 60px 20px; display: none; }
+        .not-found.show { display: block; }
+        .not-found .icon { font-size: 64px; margin-bottom: 16px; }
+        .not-found h3 { font-size: 24px; margin-bottom: 8px; }
+        .not-found p { color: var(--text-secondary); }
+        
+        .toast-container { position: fixed; top: 80px; right: 20px; z-index: 10000; display: flex; flex-direction: column; gap: 8px; }
+        .toast { padding: 14px 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 12px; font-size: 14px; }
+        .toast.error { border-left: 4px solid #ef4444; }
+        
+        .footer { background: var(--bg); border-top: 1px solid var(--border); padding: 24px 20px; text-align: center; font-size: 14px; color: var(--text-muted); }
+        
+        @media (max-width: 768px) {
+            .search-input-group { flex-direction: column; }
+            .details-grid { grid-template-columns: 1fr; }
+            .progress-steps { flex-wrap: wrap; gap: 12px; justify-content: center; }
+            .page-header h1 { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="toast-container" id="toastContainer"></div>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <div class="logo-icon">A</div>
+                <span class="logo-text">Akel Cargo</span>
+            </a>
+            <div class="nav-actions">
+                <div class="lang-dropdown">
+                    <button class="lang-toggle" onclick="toggleLangMenu()">🌐</button>
+                    <div class="lang-menu" id="langMenu">
+                        <div class="lang-option active" onclick="setLang('tg')">🇹🇯 Тоҷикӣ</div>
+                        <div class="lang-option" onclick="setLang('ru')">🇷🇺 Русский</div>
+                        <div class="lang-option" onclick="setLang('en')">🇬🇧 English</div>
+                    </div>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+                <a href="/" class="btn btn-outline">← <span data-i18n="nav.services">Саҳифаи асосӣ</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>📦 <span data-i18n="track.title">Пайгирии бор</span></h1>
+        <p data-i18n="track.subtitle">Рақами трекингро ворид кунед</p>
+    </div>
+
+    <div class="container">
+        <div class="search-card">
+            <div class="search-input-group">
+                <input type="text" id="trackingInput" placeholder="AC123456789" data-i18n="track.input">
+                <button onclick="searchTracking()" data-i18n="track.search">🔍 Ҷустуҷӯ</button>
+            </div>
+        </div>
+
+        <div class="result-card" id="resultCard">
+            <div class="result-header">
+                <h2 id="resultStatus"></h2>
+                <div class="tracking-number" id="resultTracking"></div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-steps">
+                    <div class="progress-step">
+                        <div class="step-dot" id="step1">📦</div>
+                        <div class="step-label" data-i18n="status.received_china">Дар анбори Чин</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-dot" id="step2">🚢</div>
+                        <div class="step-label" data-i18n="status.in_transit">Дар роҳ</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-dot" id="step3">🛃</div>
+                        <div class="step-label" data-i18n="status.customs">Дар гумрук</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-dot" id="step4">🇹🇯</div>
+                        <div class="step-label" data-i18n="status.received_tj">Расид</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-dot" id="step5">✅</div>
+                        <div class="step-label" data-i18n="status.delivered">Супурда шуд</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="result-details">
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <div class="detail-label" data-i18n="track.status">Ҳолат</div>
+                        <div class="detail-value status" id="detailStatus"></div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label" data-i18n="track.location">Ҷойгиршавӣ</div>
+                        <div class="detail-value" id="detailLocation"></div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label" data-i18n="track.weight">Вазн</div>
+                        <div class="detail-value" id="detailWeight"></div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label" data-i18n="track.price">Нарх</div>
+                        <div class="detail-value" id="detailPrice"></div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label" data-i18n="track.estimated">Тақрибан</div>
+                        <div class="detail-value" id="detailEstimated"></div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label" data-i18n="contact.phone">Телефон</div>
+                        <div class="detail-value" id="detailReceiver"></div>
+                    </div>
+                </div>
+                
+                <h3 class="updates-title" data-i18n="track.history">📋 Таърих</h3>
+                <div id="updatesContainer"></div>
+            </div>
+        </div>
+
+        <div class="not-found" id="notFound">
+            <div class="icon">📭</div>
+            <h3 data-i18n="track.notFound">Бор ёфт нашуд</h3>
+            <p>Рақами трекингро дуруст ворид кунед</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>© 2026 Akel Cargo. Ҳамаи ҳуқуқ маҳфузанд.</p>
+    </footer>
+
+    <script src="/js/i18n.js"></script>
+    <script src="/js/app.js"></script>
+    <script>
+        const statusOrder = ['received_china', 'in_transit', 'customs', 'received_tj', 'delivered'];
+        
+        async function searchTracking() {
+            const input = document.getElementById('trackingInput');
+            const number = input.value.trim();
+            if (!number) return;
+            
+            try {
+                const res = await fetch(`/api/tracking/${number}`);
+                const data = await res.json();
+                
+                document.getElementById('resultCard').classList.remove('show');
+                document.getElementById('notFound').classList.remove('show');
+                
+                if (res.ok) {
+                    displayResult(data);
+                } else {
+                    document.getElementById('notFound').classList.add('show');
+                }
+            } catch (error) {
+                showToast(t('msg.error'), 'error');
+            }
+        }
+        
+        function displayResult(data) {
+            const pkg = data.package;
+            const updates = data.updates;
+            const statusIdx = statusOrder.indexOf(pkg.status);
+            const progress = ((statusIdx + 1) / statusOrder.length) * 100;
+            
+            // Status text
+            const statusText = t('status.' + pkg.status) || pkg.status;
+            document.getElementById('resultStatus').textContent = statusText;
+            document.getElementById('resultTracking').textContent = `Трекинг: ${pkg.tracking_number}`;
+            
+            // Progress bar
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            // Steps
+            for (let i = 1; i <= 5; i++) {
+                const dot = document.getElementById('step' + i);
+                const label = dot.parentElement.querySelector('.step-label');
+                if (i <= statusIdx + 1) {
+                    dot.classList.add('active');
+                    label.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                    label.classList.remove('active');
+                }
+            }
+            
+            // Details
+            document.getElementById('detailStatus').textContent = statusText;
+            document.getElementById('detailLocation').textContent = pkg.current_location || '-';
+            document.getElementById('detailWeight').textContent = pkg.weight ? pkg.weight + ' кг' : '-';
+            document.getElementById('detailPrice').textContent = pkg.price ? pkg.price + ' сомонӣ' : '-';
+            document.getElementById('detailEstimated').textContent = pkg.estimated_delivery || '-';
+            document.getElementById('detailReceiver').textContent = pkg.receiver_phone || '-';
+            
+            // Updates
+            const container = document.getElementById('updatesContainer');
+            container.innerHTML = updates.map((u, i) => `
+                <div class="update-item">
+                    <div class="update-dot ${i === 0 ? 'first' : ''}"></div>
+                    <div class="update-content">
+                        <div class="update-status">${t('status.' + u.status) || u.status}</div>
+                        <div class="update-location">📍 ${u.location || ''}</div>
+                        <div class="update-desc">${u.description || ''}</div>
+                    </div>
+                    <div class="update-time">${new Date(u.created_at).toLocaleDateString()}</div>
+                </div>
+            `).join('');
+            
+            document.getElementById('resultCard').classList.add('show');
+            applyTranslations();
+        }
+        
+        // Enter key
+        document.getElementById('trackingInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') searchTracking();
+        });
+        
+        // Check URL params
+        const urlParams = new URLSearchParams(window.location.search);
+        const trackingParam = urlParams.get('number');
+        if (trackingParam) {
+            document.getElementById('trackingInput').value = trackingParam;
+            searchTracking();
+        }
+    </script>
+</body>
+</html>
