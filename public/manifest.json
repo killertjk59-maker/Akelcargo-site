@@ -1,0 +1,13 @@
+{
+  "name": "Akelcargo",
+  "short_name": "Akelcargo",
+  "description": "Пайгирии бор аз Чин то Тоҷикистон",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff1f2",
+  "theme_color": "#e11d48",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "/icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

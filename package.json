@@ -1,0 +1,29 @@
+{
+  "name": "akelcargo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Akelcargo — пайгирии бор аз Чин то Тоҷикистон",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "concurrently -k \"npm:server\" \"npm:client\"",
+    "server": "node server.js",
+    "client": "vite --host 0.0.0.0 --port 5173",
+    "build": "vite build",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "multer": "^2.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "uuid": "^11.1.0",
+    "vite": "^5.4.19"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
