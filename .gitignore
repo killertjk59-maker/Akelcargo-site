@@ -1,8 +1,33 @@
+# --- Node ---
 node_modules/
-dist/
-data/db.json
-uploads/*
-!uploads/.gitkeep
-.DS_Store
+npm-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# --- Обои (env) ---
 .env
+.env.*
+!.env.example
+
+# --- Системавӣ ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Муҳаррир ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Логҳо ---
 *.log
+logs/
+
+# --- Дигар ---
+.cache/
+.temp/
+tmp/
+coverage/
+dist/
+build/
