@@ -1,14 +1,22 @@
 {
-  "name": "oshxona-market",
+  "name": "dono-ai",
   "version": "1.0.0",
   "private": true,
-  "description": "Ошхона Маркет — мағозаи онлайн барои ҳама чиз барои ошхона (статикӣ + сервери Node)",
-  "main": "server.js",
+  "description": "DONO AI — низоми зеҳни сунъӣ барои таҳлили дониш ва кӯмак ба хонандагон дар омӯзиши фанҳои табиӣ (Website + Telegram Bot + як Backend)",
+  "main": "src/server.js",
+  "type": "commonjs",
   "engines": {
-    "node": ">=18"
+    "node": ">=18.17"
   },
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "bot": "node src/bot-poll.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0"
   }
 }

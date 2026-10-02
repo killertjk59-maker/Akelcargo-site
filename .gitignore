@@ -2,32 +2,35 @@
 node_modules/
 npm-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
 
-# --- Обои (env) ---
+# --- Муҳит (махфият!) ---
 .env
 .env.*
 !.env.example
 
+# --- Додаҳо ---
+data/
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+
 # --- Системавӣ ---
 .DS_Store
 Thumbs.db
-desktop.ini
 
 # --- Муҳаррир ---
 .vscode/
 .idea/
-*.swp
-*.swo
 
 # --- Логҳо ---
 *.log
 logs/
 
-# --- Дигар ---
+# --- Ҳаромӣ ---
 .cache/
 .temp/
 tmp/
-coverage/
 dist/
 build/
+coverage/

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="tj">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+<meta name="description" content="DONO AI — ёвари зеҳни сунъӣ барои химия, биология, математика ва физика. Омӯз. Фаҳм. Пешравӣ кун.">
+<title>DONO AI — Омӯз. Фаҳм. Пешравӣ кун.</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+</head>
+<body>
+
+<!-- ═════════════ Саразгоҳ ═════════════ -->
+<header class="topbar">
+  <div class="brand">
+    <img class="logo" src="assets/logo.svg" alt="DONO AI" width="40" height="40">
+    <div class="brand-text">
+      <h1>DONO&nbsp;AI</h1>
+      <p class="tagline">Омӯз. Фаҳм. Пешравӣ кун.</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <span class="chip streak" id="streakChip" title="Силсилаи рӯзҳои фаъол">🔥 <b id="streakValue">0</b></span>
+    <button class="btn ghost" id="authBtn" type="button">Ворид шудан</button>
+  </div>
+</header>
+
+<p class="subtitle">Ёвари зеҳни сунъии ту барои химия, биология, математика ва физика.</p>
+
+<!-- ═════════════ Навигатсия ═════════════ -->
+<nav class="tabs" id="tabs" role="tablist">
+  <button class="tab active" data-view="chat"     role="tab">💬 Чат</button>
+  <button class="tab"        data-view="analyze"  role="tab">🔍 Таҳлили хато</button>
+  <button class="tab"        data-view="image"    role="tab">📷 Масъала бо акс</button>
+  <button class="tab"        data-view="olympiad" role="tab">🏆 Олимпиада</button>
+  <button class="tab"        data-view="profile"  role="tab">📊 Кабинети ман</button>
+</nav>
+
+<main>
+
+<!-- ═════════════ 1. ЧАТ ═════════════ -->
+<section class="view active" id="view-chat">
+  <div class="subject-bar" id="subjectBar" role="group" aria-label="Интихоби фан"></div>
+  <p class="level-hint" id="levelHint">Сатҳ: Medium</p>
+
+  <div class="chat" id="chatBox" aria-live="polite">
+    <div class="msg bot">
+      <div class="bubble">Салом! Ман <b>DONO AI</b> ҳастам 🧠<br>Фанро интихоб кун ва савол пурс — ё аксашро бифирист.</div>
+    </div>
+  </div>
+
+  <div class="typing" id="typing" hidden><span></span><span></span><span></span> DONO AI мекунад...</div>
+
+  <form class="composer" id="chatForm" autocomplete="off">
+    <textarea id="chatInput" rows="1" placeholder="Саволatro навис..." maxlength="4000"></textarea>
+    <button class="btn primary send" id="sendBtn" type="submit" aria-label="Фиристодан">➤</button>
+  </form>
+  <div class="chat-tools">
+    <button class="btn tiny" id="clearChat" type="button">🧹 Пок кардан</button>
+    <span class="hint" id="aiMode"></span>
+  </div>
+</section>
+
+<!-- ═════════════ 2. ТАҲЛИЛИ ХАТО ═════════════ -->
+<section class="view" id="view-analyze">
+  <h2>🔍 Таҳлили хато</h2>
+  <p class="lead">Масъала ва ҷавоби худро навис. AI хатогӣ пайдо мекунад ва ҷавоби дурустро бо шарҳ мегӯяд.</p>
+
+  <form id="analyzeForm" class="card form">
+    <label>Масъала
+      <textarea id="anQuestion" rows="3" placeholder="Мисол: 2x + 5 = 17 → x = ?" maxlength="4000"></textarea>
+    </label>
+    <label>Ҷавоби ту
+      <input id="anAnswer" type="text" placeholder="Мисол: x = 6" maxlength="500">
+    </label>
+    <div class="subject-bar" id="anSubjectBar"></div>
+    <button class="btn primary block" type="submit">Таҳлил кун 🔍</button>
+  </form>
+
+  <div class="result card" id="analyzeResult" hidden></div>
+</section>
+
+<!-- ═════════════ 3. МАСЪАЛА БО АКС ═════════════ -->
+<section class="view" id="view-image">
+  <h2>📷 Масъала бо акс</h2>
+  <p class="lead">Акси масъала (ё аз китоб, ё аз тахта)-ро бигир — AI матнро мехонад ва ҳаллу фашл медиҳад.</p>
+
+  <form id="imageForm" class="card form">
+    <div class="drop" id="dropZone">
+      <input type="file" id="imageInput" accept="image/*" capture="environment" hidden>
+      <p>📸 Акс гир ё файл интихоб кун</p>
+      <button class="btn" type="button" id="pickImage">Интихоби акс</button>
+    </div>
+    <img class="preview" id="imagePreview" alt="Пешнамоиши акс" hidden>
+    <label>Савол (ихтиёрӣ)
+      <input id="imgQuestion" type="text" placeholder="Мисол: танҳо ҷавобро бигӯ" maxlength="300">
+    </label>
+    <div class="subject-bar" id="imgSubjectBar"></div>
+    <button class="btn primary block" type="submit" id="imageSubmit">Ҳал кун 🧠</button>
+  </form>
+
+  <div class="result card" id="imageResult" hidden></div>
+</section>
+
+<!-- ═════════════ 4. ОЛИМПИАДА ═════════════ -->
+<section class="view" id="view-olympiad">
+  <h2>🏆 Олимпиада</h2>
+  <p class="lead">Сатҳро интихоб кун: сатҳи баландтаре — масъалаҳои душвортар.</p>
+
+  <div class="levels" id="levelBar">
+    <button class="lvl" data-level="beginner">🟢 Осон</button>
+    <button class="lvl" data-level="medium">🟡 Миёна</button>
+    <button class="lvl" data-level="hard">🔴 Душвор</button>
+    <button class="lvl" data-level="olympiad">🏆 Олимпиада</button>
+  </div>
+  <div class="subject-bar" id="olSubjectBar"></div>
+  <button class="btn primary block" id="startOlympiad">Оғоз кун 🚀</button>
+
+  <div id="olympiadBox" hidden>
+    <div class="qmeta" id="qMeta"></div>
+    <div class="qtext" id="qText"></div>
+    <div class="options" id="qOptions"></div>
+    <button class="btn primary block" id="nextQ" hidden>Саволӣ дигар →</button>
+    <div class="score" id="olScore" hidden></div>
+  </div>
+</section>
+
+<!-- ═════════════ 5. КАБИНЕТ ═════════════ -->
+<section class="view" id="view-profile">
+  <h2>📊 Кабинети ман</h2>
+
+  <div class="card stat-grid">
+    <div class="stat"><b id="stKnowledge">0%</b><span>Дониш</span></div>
+    <div class="stat"><b id="stAccuracy">0%</b><span>Дақиқат</span></div>
+    <div class="stat"><b id="stTotal">0</b><span>Савол</span></div>
+    <div class="stat"><b id="stStreak">0</b><span>Рӯзи пайдарпай</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Маълумот бо фан</h3>
+    <div id="bars"></div>
+  </div>
+
+  <div class="card">
+    <h3>🔴 Мавзӯъҳои заиф</h3>
+    <ul class="list" id="weakList"><li class="empty">Ҳанӯз маълумот нест.</li></ul>
+  </div>
+
+  <div class="card">
+    <h3>🟢 Мавзӯъҳои қави</h3>
+    <ul class="list" id="strongList"><li class="empty">Ҳанӯз маълумот нест.</li></ul>
+  </div>
+
+  <div class="card">
+    <h3>💡 Тавсияҳо</h3>
+    <ul class="list" id="recList"><li class="empty">Аввал чанде савол ҳал кун.</li></ul>
+  </div>
+
+  <div class="card">
+    <h3>🔗 Пайваст кунии Telegram</h3>
+    <p class="lead">Аккаунти сайтро бо боти Telegram пайваст кун, то саволҳо ҳар ду ҷо якхела бошанд.</p>
+    <button class="btn primary block" id="linkBtn" type="button">Рамз гир 🔗</button>
+    <div id="linkBox" hidden></div>
+    <p class="hint" id="botName"></p>
+  </div>
+
+  <div class="card">
+    <h3>Таърихи саволҳо</h3>
+    <ul class="list" id="historyList"><li class="empty">Таърих холӣ аст.</li></ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <p><b>DONO AI</b> — як backend, як пойгоҳи додаҳо, як AI барои сайт ва бот.</p>
+  <p class="hint">© <span id="year"></span> · Барои донишҷӯён 🎓</p>
+</footer>
+
+<!-- ═════════════ ТИРҚАИ ВОРИДШАВӢ ═════════════ -->
+<div class="modal" id="authModal" hidden>
+  <div class="sheet">
+    <button class="close" id="authClose" aria-label="Пӯшонидан">✕</button>
+    <h2>Ворид шудан</h2>
+    <p class="lead">Тавассути Telegram Login ё рамзи 6-рақама.</p>
+
+    <button class="btn primary block" id="tgLoginBtn" type="button">✈️ Ворид бо Telegram</button>
+
+    <div class="divider"><span>ё</span></div>
+
+    <form id="codeForm" class="form">
+      <label>Рамзи 6-рақама
+        <input id="codeInput" type="text" inputmode="numeric" maxlength="6" placeholder="123456">
+      </label>
+      <button class="btn block" type="submit">Тасдиқ кун</button>
+    </form>
+    <p class="hint">Рамзро дар боти Telegram бо <code>/login</code> мегиред.</p>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="script.js" defer></script>
+</body>
+</html>

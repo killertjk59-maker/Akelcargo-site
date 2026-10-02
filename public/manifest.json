@@ -1,0 +1,13 @@
+{
+  "name": "DONO AI — Омӯз. Фаҳм. Пешравӣ кун.",
+  "short_name": "DONO AI",
+  "description": "Ёвари зеҳни сунъӣ барои химия, биология, математика ва физика.",
+  "lang": "tj",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b1020",
+  "theme_color": "#0b1020",
+  "icons": [
+    { "src": "assets/logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

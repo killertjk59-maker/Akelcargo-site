@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5b8cff"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#0b1020"/>
+  <rect x="3" y="3" width="58" height="58" rx="14" fill="url(#g)" opacity="0.16"/>
+  <path d="M18 24c0-4.4 3.6-8 8-8h4c4.4 0 8 3.6 8 8v4c0 1.1-.9 2-2 2h-2v10c0 4.4-3.6 8-8 8h-4c-4.4 0-8-3.6-8-8z" fill="url(#g)"/>
+  <circle cx="45" cy="24" r="4" fill="#22d3ee"/>
+  <path d="M32 12v6M20 18l3 4M44 18l-3 4" stroke="#22d3ee" stroke-width="2.4" stroke-linecap="round"/>
+  <text x="32" y="52" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#eaf0ff">AI</text>
+</svg>
